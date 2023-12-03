@@ -1,3 +1,4 @@
+
 export class SystemError extends Error {
   static {
     this.prototype.name = 'SystemError'
@@ -11,6 +12,16 @@ export class GitRepositoryNotFoundError extends Error {
   static {
     this.prototype.name = 'GitRepositoryNotFoundError'
   }
+  constructor(message: string, options?: ErrorOptions) {
+    super(message, options)
+  }
+}
+
+export class InvalidGitObject extends Error {
+  static {
+    this.prototype.name = 'InvalidGitObject'
+  }
+
   constructor(message: string, options?: ErrorOptions) {
     super(message, options)
   }

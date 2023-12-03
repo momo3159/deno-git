@@ -13,8 +13,8 @@ if (import.meta.main) {
     .command("log", "logコマンド")
     .action(() => {
       const hashString = "e2abcfe74eb3621941ad20aea161f37dfd80b085"
-      client.getObject(hashString) 
-
+      const gitObject = client.getObject(hashString) 
+      console.log(gitObject)
     }) 
     .parse(Deno.args)
 }
