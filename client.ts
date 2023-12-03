@@ -1,5 +1,7 @@
 import { toFileUrl, fromFileUrl, dirname, join } from "https://deno.land/std@0.208.0/path/mod.ts";
 import { GitRepositoryNotFoundError, SystemError } from "./errors.ts";
+import * as zlib from "node:zlib"
+import {Buffer} from 'node:buffer'
 
 const findRootRepository = (path: URL): URL => {
   try {
@@ -25,6 +27,18 @@ class Client {
   repository: URL
   constructor(repository: URL) {
     this.repository = repository
+  }
+
+  getObject(hash: string){
+    const objectPath = join(fromFileUrl(this.repository), 'objects', hash.substring(0, 2), hash.substring(2))
+    try {
+      const binary = Buffer.from(Deno.readFileSync(objectPath))
+      const objectStr = zlib.inflateSync(binary).toString()
+      console.log(objectStr)
+      // TODO: パースオブジェクト
+    } catch (e) {
+      throw new SystemError(`can't get git object. object hash is ${hash}`, {cause: e})
+    }
   }
 }
 

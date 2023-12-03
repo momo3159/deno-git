@@ -11,7 +11,11 @@ if (import.meta.main) {
     .description("自作Git")
     .action(() => { console.log("main") })
     .command("log", "logコマンド")
-    .action(() => { console.log('git log'); console.log(client)})
+    .action(() => {
+      const hashString = "e2abcfe74eb3621941ad20aea161f37dfd80b085"
+      client.getObject(hashString) 
+
+    }) 
     .parse(Deno.args)
 }
 
